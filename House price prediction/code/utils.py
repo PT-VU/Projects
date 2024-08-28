@@ -298,13 +298,19 @@ train_absmax_transformed = data_transform(train_csv, "abs-max")
 train_zscore_transformed = data_transform(train_csv, "z-score")
 train_log_transformed = data_transform(train_csv, "log")
 
-train_log_transformed = remove_outliers_capping(train_log_transformed)
-train_minmax_transformed = remove_outliers_capping(train_minmax_transformed)
-train_absmax_transformed = remove_outliers_capping(train_absmax_transformed)
-train_zscore_transformed = remove_outliers_capping(train_zscore_transformed)
+train_log_transformed = remove_outliers(train_log_transformed)
+train_minmax_transformed = remove_outliers(train_minmax_transformed)
+train_absmax_transformed = remove_outliers(train_absmax_transformed)
+train_zscore_transformed = remove_outliers(train_zscore_transformed)
+
+train_log_transformed_capped = remove_outliers_capping(train_log_transformed)
+train_minmax_transformed_capped = remove_outliers_capping(train_minmax_transformed)
+train_absmax_transformed_capped = remove_outliers_capping(train_absmax_transformed)
+train_zscore_transformed_capped = remove_outliers_capping(train_zscore_transformed)
 
 # Preprocess test data
 print("Processing test data")
+test_csv = test_csv.drop(columns=["Id"])
 test_csv = label_encoder(test_csv)
 test_csv = iterative_impute(test_csv)
 
@@ -312,10 +318,5 @@ test_minmax_transformed = data_transform(test_csv, "min-max")
 test_absmax_transformed = data_transform(test_csv, "abs-max")
 test_zscore_transformed = data_transform(test_csv, "z-score")
 test_log_transformed = data_transform(test_csv, "log")
-
-test_log_transformed = remove_outliers_capping(test_log_transformed)
-test_minmax_transformed = remove_outliers_capping(test_minmax_transformed)
-test_absmax_transformed = remove_outliers_capping(test_absmax_transformed)
-test_zscore_transformed = remove_outliers_capping(test_zscore_transformed)
 
 print("Data Loading and preprocessing complete!")
