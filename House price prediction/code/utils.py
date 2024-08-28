@@ -149,7 +149,7 @@ def remove_outliers(df, iqr_range=5):
             for row_index in outliers.index:
                 outlier_index.add(row_index)
 
-    df_new = df_new.drop(outlier_index).drop(columns=0)
+    df_new = df_new.drop(index=list(outlier_index))
 
     return df_new
 
@@ -175,7 +175,7 @@ def remove_outliers_capping(df, lower_bond=0.01, upper_bond=0.99):
     return df_new
 
 
-def test_model(df, alpha):
+def test_model(df, random_state = 50):
     X = df.iloc[:, :-1]
     Y = df.iloc[:, -1]
 
@@ -188,7 +188,7 @@ def test_model(df, alpha):
     for alpha in alphas:
         model = Lasso(alpha=alpha)
 
-        cv = RepeatedKFold(n_splits=5, n_repeats=5, random_state=1)
+        cv = RepeatedKFold(n_splits=5, n_repeats=5, random_state = random_state)
         # evaluate model
         scores = cross_val_score(model, X, Y, scoring='neg_mean_absolute_error', cv=cv, n_jobs=-1)
 
@@ -204,7 +204,7 @@ def test_model(df, alpha):
     print(f"Minimum MAE: {min(result_mean)}, alpha={result_alpha[result_mean.index(min(result_mean))]}")
 
 
-def test_model_rmse(df, alpha):
+def test_model_rmse(df, random_state = 50):
     X = df.iloc[:, :-1]
     Y = df.iloc[:, -1]
 
@@ -220,7 +220,7 @@ def test_model_rmse(df, alpha):
     for alpha in alphas:
         model = Lasso(alpha=alpha)
 
-        cv = RepeatedKFold(n_splits=5, n_repeats=5, random_state=1)
+        cv = RepeatedKFold(n_splits=5, n_repeats=5, random_state= random_state)
         # Evaluate model using RMSE
         scores = cross_val_score(model, X, Y, scoring=rmse_scorer, cv=cv, n_jobs=-1)
 
@@ -298,11 +298,13 @@ train_absmax_transformed = data_transform(train_csv, "abs-max")
 train_zscore_transformed = data_transform(train_csv, "z-score")
 train_log_transformed = data_transform(train_csv, "log")
 
-train_log_transformed = remove_outliers(train_log_transformed)
-train_minmax_transformed = remove_outliers(train_minmax_transformed)
-train_absmax_transformed = remove_outliers(train_absmax_transformed)
-train_zscore_transformed = remove_outliers(train_zscore_transformed)
+train_nocap = remove_outliers(train_csv)
+train_log_transformed_nocap = remove_outliers(train_log_transformed)
+train_minmax_transformed_nocap = remove_outliers(train_minmax_transformed)
+train_absmax_transformed_nocap = remove_outliers(train_absmax_transformed)
+train_zscore_transformed_nocap = remove_outliers(train_zscore_transformed)
 
+train_capped = remove_outliers_capping(train_csv)
 train_log_transformed_capped = remove_outliers_capping(train_log_transformed)
 train_minmax_transformed_capped = remove_outliers_capping(train_minmax_transformed)
 train_absmax_transformed_capped = remove_outliers_capping(train_absmax_transformed)
