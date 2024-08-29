@@ -16,6 +16,7 @@ from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import RepeatedKFold
 from sklearn.model_selection import train_test_split
 from numpy import mean, std, absolute
+from scipy import stats
 
 from sklearn.metrics import mean_absolute_error
 
@@ -46,12 +47,12 @@ def change_datatype(df, col_names, new_type):
     return df
 
 
-def label_encoder(df):
+def label_encoder(df, start_index = 0):
     label_encoder = LabelEncoder()
 
     for col_name in df.columns:
         if df[col_name].dtype == "O":
-            df[col_name] = label_encoder.fit_transform(df[col_name])
+            df[col_name] = label_encoder.fit_transform(df[col_name]) + start_index
 
     return df
 
@@ -103,8 +104,8 @@ def display_scatter(df):
 
 
 def data_transform(df, mode="min-max"):
-    assert any([mode == "min-max", mode == "abs-max", mode == "z-score", mode == "log"]), "Invalid mode name. \
-        Please enter 'min-max', 'abs-max', 'z-score', 'log'."
+    assert any([mode == "min-max", mode == "abs-max", mode == "z-score", mode == "log", mode == "yeo-johnson"]), "Invalid mode name. \
+        Please enter 'min-max', 'abs-max', 'z-score', 'log', or 'yeo-johnson'."
 
     df_transformed = df.copy()
 
@@ -128,8 +129,49 @@ def data_transform(df, mode="min-max"):
         elif mode == "log":
             df_transformed[column] = np.log(df_transformed[column] + 1)
 
+        elif mode == "yeo-johnson":
+            try:
+                transformed_data, _ = stats.yeojohnson(np.array(df_transformed[column]))
+            except Exception as e:
+                print(f"Yeo-Johnson transformation failed for column {column}: {e}")
+            df_transformed[column] = transformed_data
+
     return df_transformed
 
+def data_transform_test(df, mode="min-max"):
+    assert any([mode == "min-max", mode == "abs-max", mode == "z-score", mode == "log", mode == "yeo-johnson"]), "Invalid mode name. \
+        Please enter 'min-max', 'abs-max', 'z-score', 'log', or 'yeo-johnson'."
+
+    df_transformed = df.copy()
+
+    for column in df_transformed.columns:
+
+        # min-max scale
+        if mode == "min-max":
+            df_transformed[column] = (df_transformed[column] - df_transformed[column].min()) / (
+                        df_transformed[column].max() - df_transformed[column].min())
+
+        # Absolute max value
+        elif mode == "abs-max":
+            df_transformed[column] = df_transformed[column] / df_transformed[column].abs().max()
+
+        # z-score
+        elif mode == "z-score":
+            df_transformed[column] = (df_transformed[column] - df_transformed[column].mean()) / df_transformed[
+                column].std()
+
+        # log normalization
+        elif mode == "log":
+            df_transformed[column] = np.log(df_transformed[column] + 1)
+
+        elif mode == "yeo-johnson":
+            try:
+                transformed_data, _ = stats.yeojohnson(np.array(df_transformed[column]))
+            except Exception as e:
+                print(f"Yeo-Johnson transformation failed for column {column}: {e}")
+            df_transformed[column] = transformed_data
+
+    return df_transformed
 
 def remove_outliers(df, iqr_range=5):
     df_new = df.copy()
@@ -297,28 +339,34 @@ train_minmax_transformed = data_transform(train_csv, "min-max")
 train_absmax_transformed = data_transform(train_csv, "abs-max")
 train_zscore_transformed = data_transform(train_csv, "z-score")
 train_log_transformed = data_transform(train_csv, "log")
+train_yj_transformed = data_transform(train_csv, "yeo-johnson")
 
 train_nocap = remove_outliers(train_csv)
 train_log_transformed_nocap = remove_outliers(train_log_transformed)
 train_minmax_transformed_nocap = remove_outliers(train_minmax_transformed)
 train_absmax_transformed_nocap = remove_outliers(train_absmax_transformed)
 train_zscore_transformed_nocap = remove_outliers(train_zscore_transformed)
+train_yj_transformed_nocap = remove_outliers(train_yj_transformed)
 
 train_capped = remove_outliers_capping(train_csv)
 train_log_transformed_capped = remove_outliers_capping(train_log_transformed)
 train_minmax_transformed_capped = remove_outliers_capping(train_minmax_transformed)
 train_absmax_transformed_capped = remove_outliers_capping(train_absmax_transformed)
 train_zscore_transformed_capped = remove_outliers_capping(train_zscore_transformed)
+train_yj_transformed_capped = remove_outliers_capping(train_yj_transformed)
 
 # Preprocess test data
 print("Processing test data")
+test_csv_ids = test_csv["Id"]
+test_csv = change_datatype(test_csv, ["MSSubClass", "OverallQual", "OverallCond", "YearBuilt", "YearRemodAdd","GarageYrBlt"], str)
 test_csv = test_csv.drop(columns=["Id"])
 test_csv = label_encoder(test_csv)
 test_csv = iterative_impute(test_csv)
 
-test_minmax_transformed = data_transform(test_csv, "min-max")
-test_absmax_transformed = data_transform(test_csv, "abs-max")
-test_zscore_transformed = data_transform(test_csv, "z-score")
-test_log_transformed = data_transform(test_csv, "log")
+test_minmax_transformed = data_transform_test(test_csv, "min-max")
+test_absmax_transformed = data_transform_test(test_csv, "abs-max")
+test_zscore_transformed = data_transform_test(test_csv, "z-score")
+test_log_transformed = data_transform_test(test_csv, "log")
+test_yj_transformed = data_transform_test(test_csv, "yeo-johnson")
 
 print("Data Loading and preprocessing complete!")
