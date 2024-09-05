@@ -11,9 +11,9 @@ from sklearn.experimental import enable_iterative_imputer
 from sklearn.impute import IterativeImputer, SimpleImputer
 from sklearn.metrics import make_scorer, mean_squared_error
 
-from sklearn.linear_model import Lasso
+from sklearn.linear_model import Lasso, ElasticNet
 from sklearn.model_selection import cross_val_score
-from sklearn.model_selection import RepeatedKFold
+from sklearn.model_selection import RepeatedKFold, GridSearchCV
 from sklearn.model_selection import train_test_split
 from numpy import mean, std, absolute
 from scipy import stats
@@ -104,8 +104,8 @@ def display_scatter(df):
 
 
 def data_transform(df, mode="min-max"):
-    assert any([mode == "min-max", mode == "abs-max", mode == "z-score", mode == "log", mode == "yeo-johnson"]), "Invalid mode name. \
-        Please enter 'min-max', 'abs-max', 'z-score', 'log', or 'yeo-johnson'."
+    assert any([mode == "min-max", mode == "abs-max", mode == "z-score", mode == "log", mode == "yeo-johnson", mode == "sqrt"]), "Invalid mode name. \
+        Please enter 'min-max', 'abs-max', 'z-score', 'log','sqrt' or 'yeo-johnson'."
 
     df_transformed = df.copy()
 
@@ -136,11 +136,16 @@ def data_transform(df, mode="min-max"):
                 print(f"Yeo-Johnson transformation failed for column {column}: {e}")
             df_transformed[column] = transformed_data
 
+        # Sqrt
+        elif mode == "sqrt":
+            df_transformed[column] = np.sqrt(df_transformed[column])
+
+
     return df_transformed
 
 def data_transform_test(df, mode="min-max"):
-    assert any([mode == "min-max", mode == "abs-max", mode == "z-score", mode == "log", mode == "yeo-johnson"]), "Invalid mode name. \
-        Please enter 'min-max', 'abs-max', 'z-score', 'log', or 'yeo-johnson'."
+    assert any([mode == "min-max", mode == "abs-max", mode == "z-score", mode == "log", mode == "yeo-johnson", mode == "sqrt"]), "Invalid mode name. \
+        Please enter 'min-max', 'abs-max', 'z-score', 'log', 'sqrt' or 'yeo-johnson'."
 
     df_transformed = df.copy()
 
@@ -164,12 +169,17 @@ def data_transform_test(df, mode="min-max"):
         elif mode == "log":
             df_transformed[column] = np.log(df_transformed[column] + 1)
 
+        # Yeo-johnson
         elif mode == "yeo-johnson":
             try:
                 transformed_data, _ = stats.yeojohnson(np.array(df_transformed[column]))
             except Exception as e:
                 print(f"Yeo-Johnson transformation failed for column {column}: {e}")
             df_transformed[column] = transformed_data
+
+        # Sqrt
+        elif mode == "sqrt":
+            df_transformed[column] = np.sqrt(df_transformed[column])
 
     return df_transformed
 
@@ -246,11 +256,12 @@ def test_model(df, random_state = 50):
     print(f"Minimum MAE: {min(result_mean)}, alpha={result_alpha[result_mean.index(min(result_mean))]}")
 
 
-def test_model_rmse(df, random_state = 50):
+def test_model_rmse(df, random_state = 50, result_to_txt = False, df_name = None):
     X = df.iloc[:, :-1]
     Y = df.iloc[:, -1]
 
-    alphas = np.logspace(-4, 0, 50)
+    # alphas = np.arange(1, 100, 1).tolist()
+    alphas = np.concatenate((np.logspace(-4,0,20), np.arange(1, 100, 1).tolist()))
 
     result_mean = []
     result_std = []
@@ -277,7 +288,40 @@ def test_model_rmse(df, random_state = 50):
     print(f"Maximum RMSE: {max(result_mean):.3f}, alpha={result_alpha[result_mean.index(max(result_mean))]}")
     print(f"Minimum RMSE: {min(result_mean):.3f}, alpha={result_alpha[result_mean.index(min(result_mean))]}")
 
+    if result_to_txt:
+        best_record_sentence = f"{df_name}: {max(result_mean):.3f}, alpha={result_alpha[result_mean.index(min(result_mean))]} \n"
+        with open("result.txt", "a") as outfile:
+            outfile.write(best_record_sentence)
 
+
+def test_elasticnet_gscv(df, df_name=None, result_to_txt=False):
+    X = df.iloc[:, :-1]
+    Y = df.iloc[:, -1]
+
+    alphas = np.concatenate((np.logspace(-4, 0, 10), np.arange(1, 100, 10).tolist()))
+    max_iter = list(range(1000, 10001, 1000))
+    l1_ratio = np.arange(0.0, 1.0, 0.05).tolist()
+    tol = [0.0001, 0.01, 0.1, 0.5]
+
+    param_grid = {'alpha': alphas,
+                  'max_iter': max_iter,
+                  'l1_ratio': l1_ratio,
+                  'tol': tol,
+                  'random_state': [50]}
+
+    elasticnet_gscv = GridSearchCV(estimator=ElasticNet(), param_grid=param_grid, scoring='neg_root_mean_squared_error',
+                                   cv=5, n_jobs=-1)
+
+    elasticnet_gscv.fit(X, Y)
+
+    print(f"Best parameter grids: {elasticnet_gscv.best_params_}")
+    print(f"Score: {elasticnet_gscv.best_score_}")
+
+    if result_to_txt:
+        best_record_sentence = f"{df_name}: {elasticnet_gscv.best_score_}, {elasticnet_gscv.best_params_} \n"
+
+        with open("result.txt", "a") as outfile:
+            outfile.write(best_record_sentence)
 def check_residuals(data, alpha, savefig=""):
     X = data.iloc[:, :-1]
     Y = data.iloc[:, -1]
