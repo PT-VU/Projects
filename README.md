@@ -1,14 +1,15 @@
 <div align="center">
-<img width="674" alt="image" src="https://github.com/user-attachments/assets/fa16a474-828f-45d5-8808-4e331400fdac">
+<img width="674" alt="image" src="https://github.com/user-attachments/assets/f0db51ef-e273-491c-9736-a668a38e991e">
 </div>
 
 
 ---
 <div align="center">
-  ➡️<a href="https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques"> Competition Website Here</a>⬅️
+  ➡️<a href="https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques/overview">Competition Website Here</a>⬅️
 </div>  
 
 ---
+
 
 <h1>Intro</h1>
 
@@ -31,8 +32,9 @@
 - Last Submission: 05 Sep 2024
 
   <div align="center">
-    <img width="923" alt="image" src="https://github.com/user-attachments/assets/6f67c910-1311-4daa-831b-59ee95b92be9">
+    <img width="923" src="https://github.com/user-attachments/assets/a556dfab-3987-4dce-9f5c-3a675352ce2b">
   </div>
+
 
 # Techniques we used:
 (Finish later)
