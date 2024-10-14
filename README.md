@@ -91,6 +91,103 @@ We firstly used one of the Validation Methods (5-fold CV with 5 repeats or Grid 
 
 # Results
 
+**Notable Model Candidates and RMSE Scores**
+
+<table>
+  <tr>
+    <th colspan="2">Model</th>
+    <th colspan="3">Data Engineering</th>
+    <th colspan="4">Hyperparameters</th>
+    <th colspan="2">      </th>
+  </tr>
+
+  <tr>
+    <td><b>Algorithm</b></td>
+    <td><b>CV method</b></td>
+    <td><b>Transformation Method</b></td>
+    <td><b>Imputation</b></td>
+    <td><b>Outlier Removal</b></td>
+    <td><b>Alpha</b></td>
+    <td><b>l1 Ratio</b></td>
+    <td><b>Max Iter</b></td>
+    <td><b>tolerance</b></td>
+    <td><b>RMSE Score</b></td>
+    <td><b>Note</b></td>
+  </tr>
+
+  <tr>
+    <td>Dummy Result</td>
+    <td> - </td>
+    <td> - </td>
+    <td> - </td>
+    <td> - </td>
+    <td> - </td>
+    <td> - </td>
+    <td> - </td>
+    <td> - </td>
+    <td>1.33076</td>
+    <td>Randomly Generated Sales Price</td>
+  </tr>
+
+  <tr>
+    <td>LASSO</td>
+    <td>5-fold</td>
+    <td>yeo-johnson</td>
+    <td>Iterative Imputer</td>
+    <td>Winsorization, 90% upper percentile</td>
+    <td>1</td>
+    <td>  -  </td>
+    <td>  -  </td>
+    <td> -  </td>
+    <td> 0.78588  </td>
+    <td> -  </td>
+  </tr>
+
+  <tr>
+    <td><b>Algorithm</b></td>
+    <td><b>CV method</b></td>
+    <td><b>Transformation Method</b></td>
+    <td><b>Imputation</b></td>
+    <td><b>Outlier Removal</b></td>
+    <td><b>Alpha</b></td>
+    <td><b>l1 Ratio</b></td>
+    <td><b>Max Iter</b></td>
+    <td><b>tolerance</b></td>
+    <td><b>RMSE Score</b></td>
+    <td><b>Note</b></td>
+  </tr>
+
+  <tr>
+    <td><b>Algorithm</b></td>
+    <td><b>CV method</b></td>
+    <td><b>Transformation Method</b></td>
+    <td><b>Imputation</b></td>
+    <td><b>Outlier Removal</b></td>
+    <td><b>Alpha</b></td>
+    <td><b>l1 Ratio</b></td>
+    <td><b>Max Iter</b></td>
+    <td><b>tolerance</b></td>
+    <td><b>RMSE Score</b></td>
+    <td><b>Note</b></td>
+  </tr>
+
+  <tr>
+    <td><b>Algorithm</b></td>
+    <td><b>CV method</b></td>
+    <td><b>Transformation Method</b></td>
+    <td><b>Imputation</b></td>
+    <td><b>Outlier Removal</b></td>
+    <td><b>Alpha</b></td>
+    <td><b>l1 Ratio</b></td>
+    <td><b>Max Iter</b></td>
+    <td><b>tolerance</b></td>
+    <td><b>RMSE Score</b></td>
+    <td><b>Note</b></td>
+  </tr>
+</table>
+
+
+
 
 
 
