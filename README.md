@@ -5,6 +5,10 @@
 
 ---
 <div align="center">
+  
+  **In a Nutshell🥜:**
+  <p>This project focuses on predicting house prices using advanced regression techniques to achieve accurate results. Key methodologies include thorough data preprocessing, feature engineering, and the application of various machine learning models such as LASSO, Ridge Regression, and Elastic-Net. The dataset, provided by a Kaggle competition, contains a range of features describing house characteristics. After extensive hyperparameter tuning and model evaluation, the LASSO model with squareroot-transformed, capped data (data which the outlier is removed by Winsorizing), provided the best performance, with an _RMSE score of 0.157_ on the test set. The project also includes a detailed model evaluation and an analysis of the most influential features.</p>
+  
   ➡️<a href="https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques/overview">Competition Website Here</a>⬅️<br>
   
   **Authors** <br>
@@ -89,7 +93,7 @@ After carefully viewing the data, we made decisions on handling the data by:
 
 **Train LASSO and Elastic-net Model with multiple types of hyperparameters, and training data varying in their outlier removal methods, trainsformation and imputing techniques**. <br><br>
 
-**Hyperarameters:**
+**Hyperarameters**
 - alpha: $\alpha \in [0.0001, 100]$
 - l1 ratio (for Elastic-net only): $l1 \ ratio \in [0,1]$
   
@@ -97,18 +101,18 @@ For both LASSO and Elastic-net if evaluated by Grid Search CV:
 - max_iter: $max\\_iter \in \[1000,10000]$, number of iterations to compute maximally
 - tolerance: 0.0001, 0.01, 0.1, 0.5, permissible threshold difference in Model's covariances in each iteration - stop training when the covariance is smaller than the threshold to prevent overfitting and wasting of computational power.
 
-#### Evaluation:
+#### Evaluation and Hyperparameter Tuning:
 
 We firstly used one of the Validation Methods (5-fold CV with 5 repeats or Grid Search CV) to find out the best-reported hyperparameter combination, then used these hyperparameters to run an _initial test_ (random 70-30 train-test split) and score the RMSE, then visualized the **residual plot** to ensure the result is _Homoscedastic_ (no multicollinearity, which might cause poor model performance)
 
-We selected the models for Kaggle Submissions **locally** in the following steps:
+We selected the best configuration of a model and tuned its (hyper)parameters for Kaggle Submissions **locally** in the following steps:
 
 1. Try different (hyper)parameter combinations, transformation methods, and/or winsorization bounds
 2. Use CV to find the best (hyper)parameter combinations
 3. Select suitable models (the one with a relatively high Validation score) 
 4. Feed the test dataset to the trained model and predict the Sales Prices of the houses in the test dataset
 5. Submit and evaluate the result on Kaggle
-6. Repeat steps 1-5 by readjusting all the hyperparameters to aim for a lower RMSE score (a better result).
+6. Repeat steps 1-5 by readjusting the model configuration (i.e.: trying a different transformation technique, a different range of alpha, a different Winsorization cap, etc.) to aim for a lower RMSE score (a better result).
 
 
 # Results
