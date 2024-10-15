@@ -26,7 +26,7 @@
   <a href="">
       <img src="https://github.com/user-attachments/assets/a0a78f0c-7366-4fd7-8ed8-560731e543a5" width="20" height="20" alt="LinkedIn Logo">
   </a>
-  <a href=" "> 
+  <a href="https://github.com/PT-VU"> 
      <img src="https://github.com/user-attachments/assets/624be0d7-36c8-4704-b406-cb4b335e9da7" width="20" height="20" alt="GitHub Logo">
   </a>
 </div>  
