@@ -51,7 +51,7 @@
 ###### Our Work Pipeline
 
 <div align="center">
-  <img width="350"  src="https://github.com/user-attachments/assets/16b5a2f2-fcad-403e-9f74-1b51e98b9328">
+  <img width="400" src="C:\Users\yixin\Desktop\Workspace\Personal GitHub Repos\Kaggle-House-Price-Prediction\Kaggle Project Workflow.png">
 </div>
 
 #### Exploratory Data Analysis (EDA):
