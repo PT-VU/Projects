@@ -1,0 +1,1 @@
+train_log_transformed: 35637.238, alpha=28.999999999999993 
