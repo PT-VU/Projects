@@ -12,10 +12,23 @@
   ➡️<a href="https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques/overview">Competition Website Here</a>⬅️<br>
   
   **Authors** <br>
-  **Yixing Wang** <img width="20" height="20" src="https://github.com/user-attachments/assets/a0a78f0c-7366-4fd7-8ed8-560731e543a5">
-<br>
-  **Pei Tong** <img width="20" height="20" src="https://github.com/user-attachments/assets/a0a78f0c-7366-4fd7-8ed8-560731e543a5">
+  <strong>Yixing Wang</strong> 
+  <a href="https://www.linkedin.com/in/yixingwang-ai">
+      <img src="https://github.com/user-attachments/assets/a0a78f0c-7366-4fd7-8ed8-560731e543a5" width="20" height="20" alt="LinkedIn Logo">
+  </a>
+  <a href="https://github.com/BruceLeo99"> 
+     <img src="https://github.com/user-attachments/assets/624be0d7-36c8-4704-b406-cb4b335e9da7" width="20" height="20" alt="GitHub Logo">
+  </a>
+
+  <br>
   
+  <strong>Pei Tong</strong>
+  <a href="">
+      <img src="https://github.com/user-attachments/assets/a0a78f0c-7366-4fd7-8ed8-560731e543a5" width="20" height="20" alt="LinkedIn Logo">
+  </a>
+  <a href=" "> 
+     <img src="https://github.com/user-attachments/assets/624be0d7-36c8-4704-b406-cb4b335e9da7" width="20" height="20" alt="GitHub Logo">
+  </a>
 </div>  
 
 ---
@@ -342,6 +355,10 @@ We selected the best configuration of a model and tuned its (hyper)parameters fo
 
 </table>
 
+###### Barplot of RMSE Scores
+<div align="center">
+  <img src="https://github.com/BruceLeo99/Kaggle-House-Price-Prediction/blob/main/RMSE%20Barplot.png">
+</div>
 
 ###### Residual plots of some of the submissions (for demonstration purposes):
 
