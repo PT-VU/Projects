@@ -51,7 +51,7 @@
 ###### Our Work Pipeline
 
 <div align="center">
-  <img width="350"  src="https://github.com/user-attachments/assets/16b5a2f2-fcad-403e-9f74-1b51e98b9328">
+  <img width="400" src="C:\Users\yixin\Desktop\Workspace\Personal GitHub Repos\Kaggle-House-Price-Prediction\Kaggle Project Workflow.png">
 </div>
 
 #### Exploratory Data Analysis (EDA):
@@ -326,10 +326,58 @@ We selected the best configuration of a model and tuned its (hyper)parameters fo
     <td> Second Best Result </td>
   </tr>
 
-  
 </table>
 
 
+###### Residual plots of some of the submissions (for demonstration purposes):
+
+
+<table>
+  <tr>
+    <td>
+      <figure> 
+        <img src="https://github.com/user-attachments/assets/cd8a90e3-dd6b-4966-976c-8a6bb920fa24" alt="Figure 1">
+        <figcaption>Figure 1: Best Result (LASSO model, sqrt-transformed data, alpha=15, Winsorized (upper bound=0.95, lower bound=0))</figcaption>
+      </figure>
+    </td>
+    <td>
+      <figure> 
+        <img src="https://github.com/user-attachments/assets/364114be-d3d5-4349-af13-4568ba0de35c" alt="Figure 2">
+        <figcaption>Figure 2: Second Best Result (LASSO model, sqrt-root transformed data, alpha=100, Winsorized (upper bound=0.98, lower bound=0))</figcaption>
+      </figure>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <figure> 
+        <img src="https://github.com/user-attachments/assets/d39b5225-54d0-4147-975d-5ed6debf6f74" alt="Figure 3">
+        <figcaption>Figure 3: Best result of Elastic-net Model (sqrt-root transformed data, alpha=0.129, l1_ratio=0.9, max_iter=1000, tol=0.0001, Winsorized (upper bound=0.95, lower bound=0))</figcaption>
+      </figure>
+    </td>
+    <td>
+      <figure> 
+        <img src="https://github.com/user-attachments/assets/372dd54e-8753-4cbc-9f76-8775a6ab9e5c" alt="Figure 4">
+        <figcaption>Figure 4: Elastic-net Model (abx-max-transformed data, alpha=100, l1_ratio=0.4, max_iter=1000, tol=0.01, Outliers at IQR=5 removed)</figcaption>
+      </figure>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <figure> 
+        <img src="https://github.com/user-attachments/assets/4321211b-f58f-480e-b71a-c9f40ba84115" alt="Figure 5">
+        <figcaption>Figure 5: LASSO model, log transformed data, alpha=15, Winsorized (upper bound=0.95, lower bound=0.01)</figcaption>
+      </figure>
+    </td>
+    <td>
+      <figure> 
+        <img src="https://github.com/user-attachments/assets/8249fcfb-db1e-4d32-b9fd-e6df21ad9f77" alt="Figure 6">
+        <figcaption>Figure 6: LASSO model, abs-max transformed data, alpha=1, Outliers at IQR=5 removed</figcaption>
+      </figure>
+    </td>
+  </tr>
+</table>
+
+**This step is crucial to analyze the validity of the model. For instance, we can see clearly that the model of _Figure 4_ is not homoscedastic, meaning that this model will make biased result.**
 
 #### Key Discoveries:
 
