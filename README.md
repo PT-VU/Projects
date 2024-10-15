@@ -51,7 +51,7 @@
 ###### Our Work Pipeline
 
 <div align="center">
-  <img width="400" src="C:\Users\yixin\Desktop\Workspace\Personal GitHub Repos\Kaggle-House-Price-Prediction\Kaggle Project Workflow.png">
+  <img width="380" src=https://github.com/BruceLeo99/Kaggle-House-Price-Prediction/blob/main/Kaggle%20Project%20Workflow.png>
 </div>
 
 #### Exploratory Data Analysis (EDA):
@@ -123,13 +123,14 @@ We selected the best configuration of a model and tuned its (hyper)parameters fo
 
 <table>
   <tr>
-    <th colspan="2">Model</th>
+    <th colspan="3">Model</th>
     <th colspan="3">Data Engineering</th>
     <th colspan="4">Hyperparameters</th>
     <th colspan="2">      </th>
   </tr>
 
   <tr>
+    <td><b>Model No.</b></td>
     <td><b>Algorithm</b></td>
     <td><b>CV method</b></td>
     <td><b>Transformation Method</b></td>
@@ -144,6 +145,7 @@ We selected the best configuration of a model and tuned its (hyper)parameters fo
   </tr>
 
   <tr>
+    <td>1</td>
     <td>Dummy Result</td>
     <td> - </td>
     <td> - </td>
@@ -158,6 +160,7 @@ We selected the best configuration of a model and tuned its (hyper)parameters fo
   </tr>
 
   <tr>
+    <td>2</td>
     <td>LASSO</td>
     <td>5-fold</td>
     <td>yeo-johnson</td>
@@ -172,6 +175,7 @@ We selected the best configuration of a model and tuned its (hyper)parameters fo
   </tr>
 
   <tr>
+    <td>3</td>
     <td>LASSO</td>
     <td>5-fold</td>
     <td>absolute max</td>
@@ -186,6 +190,7 @@ We selected the best configuration of a model and tuned its (hyper)parameters fo
   </tr>
 
   <tr>
+    <td>4</td>
     <td>Elastic Net</td>
     <td>Grid Search</td>
     <td>absolute max</td>
@@ -200,6 +205,7 @@ We selected the best configuration of a model and tuned its (hyper)parameters fo
   </tr>
 
   <tr>
+    <td>5</td>
     <td>Elastic Net</td>
     <td>Grid Search</td>
     <td>absolute max</td>
@@ -214,6 +220,7 @@ We selected the best configuration of a model and tuned its (hyper)parameters fo
   </tr>
 
   <tr>
+    <td>6</td>
     <td>LASSO</td>
     <td>5-fold</td>
     <td>absolute max</td>
@@ -228,6 +235,7 @@ We selected the best configuration of a model and tuned its (hyper)parameters fo
   </tr>
 
   <tr>
+    <td>7</td>
     <td>LASSO</td>
     <td>5-fold</td>
     <td>log</td>
@@ -243,6 +251,7 @@ We selected the best configuration of a model and tuned its (hyper)parameters fo
 
 
 <tr>
+    <td>8</td>
     <td>Elastic Net</td>
     <td>Grid Search</td>
     <td>log</td>
@@ -257,6 +266,7 @@ We selected the best configuration of a model and tuned its (hyper)parameters fo
   </tr>
   
   <tr>
+    <td>9</td>
     <td>LASSO</td>
     <td>5-fold</td>
     <td>log</td>
@@ -271,6 +281,7 @@ We selected the best configuration of a model and tuned its (hyper)parameters fo
   </tr>
 
 <tr>
+    <td>10</td>
     <td>LASSO</td>
     <td>5-fold</td>
     <td>squareroot</td>
@@ -285,6 +296,7 @@ We selected the best configuration of a model and tuned its (hyper)parameters fo
   </tr>
 
 <tr>
+    <td>11</td>
     <td>Elastic Net</td>
     <td>Grid Search</td>
     <td>squareroot</td>
@@ -299,6 +311,7 @@ We selected the best configuration of a model and tuned its (hyper)parameters fo
   </tr>
 
   <tr>
+    <td>12</td>
     <td>LASSO</td>
     <td>5-fold</td>
     <td>squareroot</td>
@@ -313,6 +326,7 @@ We selected the best configuration of a model and tuned its (hyper)parameters fo
   </tr>
 
   <tr>
+    <td>13</td>
     <td>LASSO</td>
     <td>5-fold</td>
     <td>squareroot</td>
