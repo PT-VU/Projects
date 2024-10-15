@@ -1,3 +1,10 @@
+######################################################
+# This script summarizes all the functions we have developed
+# during the project, and automatically loads
+# all the transformed dataset for testing
+######################################################
+
+
 print("Loading functions and raw data")
 import os
 import pandas as pd
@@ -322,13 +329,29 @@ def test_elasticnet_gscv(df, df_name=None, result_to_txt=False):
 
         with open("result.txt", "a") as outfile:
             outfile.write(best_record_sentence)
-def check_residuals(data, alpha, savefig=""):
+def check_residuals(data, alpha, model = "lasso", l1_ratio = None, max_iter = None, tol=None, savefig=""):
+
     X = data.iloc[:, :-1]
     Y = data.iloc[:, -1]
 
     X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=15)
 
-    model_residual = Lasso(alpha=alpha)
+    if model.lower() == 'lasso':
+        model_residual = Lasso(alpha=alpha)
+
+    elif model.lower() == 'elastic-net':
+        assert all([l1_ratio is not None, max_iter is not None, tol is not None]), \
+            "You are using Elastic-net model. For this model, please pass in the l1-ratio, max iter and tol as well."
+
+        model_residual = ElasticNet(
+            alpha=alpha,
+            l1_ratio=l1_ratio,
+            max_iter = max_iter,
+            tol = tol)
+
+    else:
+        raise ValueError(f"Unknown model: {model}. Please choose 'lasso' or 'elastic-net'.")
+
     model_residual.fit(X_train, Y_train)
 
     # Make predictions on the test set
@@ -344,7 +367,7 @@ def check_residuals(data, alpha, savefig=""):
     plt.axhline(y=0, color='red', linestyle='--')
     plt.xlabel('Predicted Values')
     plt.ylabel('Residuals')
-    plt.title(f'Residual Plot for LASSO Regression (alpha={alpha})')
+    plt.title(f'Residual Plot for {model} Regression (alpha={alpha})')
 
     if savefig:
         plt.savefig(savefig)

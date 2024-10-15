@@ -1,3 +1,12 @@
+##################################
+# This script creates a Regression
+# model with the configuration of
+# the best results, and automatically
+# predicts and loads the Sales Price
+# Of the houses in test dataset for
+# Kaggle submission.
+##################################
+
 import utils
 
 from utils import test_csv, train_csv
