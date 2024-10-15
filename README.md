@@ -23,7 +23,7 @@
   <br>
   
   <strong>Pei Tong</strong>
-  <a href="">
+  <a href="www.linkedin.com/in/p-p-98608a194">
       <img src="https://github.com/user-attachments/assets/a0a78f0c-7366-4fd7-8ed8-560731e543a5" width="20" height="20" alt="LinkedIn Logo">
   </a>
   <a href=" "> 
